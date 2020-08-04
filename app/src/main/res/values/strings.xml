@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">educhip-app</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_data">An error occured while loading data</string>
+    <string name="signup_welcome_text">Welcome! We need your registration in order to find the best educational opportunities for you!</string>
+
+
+</resources>
