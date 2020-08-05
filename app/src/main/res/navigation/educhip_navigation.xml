@@ -7,5 +7,5 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.moniumverse.educhip_app.view.SignupFragment"
-        android:label="SignupFragment" />
+        android:label="User Registration" />
 </navigation>
