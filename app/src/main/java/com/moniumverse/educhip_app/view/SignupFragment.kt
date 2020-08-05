@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.signup_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
+import java.util.regex.Pattern
 
 
 class SignupFragment : Fragment() {
@@ -49,8 +50,14 @@ class SignupFragment : Fragment() {
         setSpiner(applyingDegreeSignup, R.array.applying_degree_array)
         setSpiner(currentDegreeSignup, R.array.current_degree_array)
         setBirthdaySelector(R.id.birthdaySignup)
-        setPhoneNumberFormatter()
-        setEmailFormatter()
+        val emailAddress = view.findViewById<TextInputLayout>(R.id.emailSignup)
+        val phoneNumber = view?.findViewById<TextInputLayout>(R.id.phoneSignUp)
+        var phoneRegex = "^[+]?[0-9]{11,15}$"
+
+
+        setFormatter(emailAddress, Patterns.EMAIL_ADDRESS, "", "Invalid email")
+        setFormatter(phoneNumber, Patterns.PHONE, phoneRegex, "Invalid phone number")
+
     }
 
     private fun setSpiner(spinner: Spinner, array: Int) {
@@ -161,27 +168,32 @@ class SignupFragment : Fragment() {
     }
 
     private fun updateBirthday(textInput: EditText?) {
-        val myFormat = "MM/dd/yy"
+        val myFormat = "dd/MM/yy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         textInput?.setText(sdf.format(calendar.getTime()))
     }
 
-    private fun setPhoneNumberFormatter() {
-        val phoneField = view?.findViewById<TextInputLayout>(R.id.phoneSignUp)
-        phoneField?.editText?.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-    }
 
-    private fun setEmailFormatter() {
+    private fun setFormatter(
+        inputLayout: TextInputLayout,
+        pattern: Pattern,
+        customRegex: String,
+        errMessage: String
+    ) {
 
-        val emailAddress = view?.findViewById<TextInputLayout>(R.id.emailSignup)
-        val emailEditText = emailAddress?.editText
+        val editText = inputLayout?.editText
 
-        emailAddress?.editText?.addTextChangedListener(object : TextWatcher {
+        editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
-                if (checkEmail(emailEditText?.getText().toString()) || s.length == 0) {
-                    emailEditText?.setError(null)
+                val matchPattern = pattern.matcher(editText.text).matches()
+                val matchRegex = editText.text.toString().matches(customRegex.toRegex())
+
+                if (customRegex.equals("") && matchPattern || s.length == 0) {
+                    editText?.setError(null)
+                } else if (!customRegex.equals("") && matchRegex) {
+                    editText?.setError(null)
                 } else {
-                    emailEditText?.setError("Invalid email address")
+                    editText?.setError(errMessage)
                 }
             }
 
@@ -205,8 +217,5 @@ class SignupFragment : Fragment() {
 
     }
 
-    private fun checkEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
 
 }

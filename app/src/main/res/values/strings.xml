@@ -26,5 +26,13 @@
     <string name="lastname_max_length">30</string>
     <string name="password_max_length">30</string>
     <string name="email_max_length">50</string>
+    <string name="where_to_study">Where do you want to study please</string>
+    <string name="birthday">Your birthday please</string>
+    <string name="first_name">Your first name please</string>
+    <string name="second_name">Your second name please</string>
+    <string name="phone_number">Your phone number please</string>
+    <string name="sign_up_btn">Sign up!</string>
+    <string name="email">Your email please</string>
+    <string name="your_password_please">Your password please</string>
 
 </resources>
