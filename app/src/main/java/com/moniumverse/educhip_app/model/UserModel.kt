@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName
 @Entity
 data class User(
 
-    @ColumnInfo(name = "age")
-    @SerializedName("age")
+    @ColumnInfo(name = "birthday")
+    @SerializedName("birthday")
     val userAge: String?,
 
     @ColumnInfo(name = "applyingEducationDegree")

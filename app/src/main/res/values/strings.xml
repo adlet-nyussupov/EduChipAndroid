@@ -5,7 +5,7 @@
     <string name="error_data">An error occured while loading data</string>
     <string name="signup_welcome_text">Welcome! We need your registration in order to find the best educational opportunities for you!</string>
 
-    <string-array name="degree_array">
+    <string-array name="applying_degree_array">
         <item>Select applying degree please</item>
         <item>Associate</item>
         <item>Bachelor</item>
@@ -13,5 +13,18 @@
         <item>Doctoral</item>
     </string-array>
 
+    <string-array name="current_degree_array">
+        <item>Select current degree please</item>
+        <item>Associate</item>
+        <item>Bachelor</item>
+        <item>Master</item>
+        <item>Doctoral</item>
+    </string-array>
+
+    <string name="wheretostudy_max_length">20</string>
+    <string name="firstname_max_length">30</string>
+    <string name="lastname_max_length">30</string>
+    <string name="password_max_length">30</string>
+    <string name="email_max_length">50</string>
 
 </resources>

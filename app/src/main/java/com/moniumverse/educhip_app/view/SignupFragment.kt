@@ -1,27 +1,37 @@
 package com.moniumverse.educhip_app.view
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
+import com.moniumverse.educhip_app.model.SysData
 import com.moniumverse.educhip_app.model.User
 import com.moniumverse.educhip_app.viewmodel.SignupViewModel
 import kotlinx.android.synthetic.main.signup_fragment.*
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.Locale
 
 
 class SignupFragment : Fragment() {
 
     private lateinit var viewModel: SignupViewModel
     private lateinit var user: User
+    val calendar: Calendar = Calendar.getInstance()
+    private var sysData: SysData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,33 +45,22 @@ class SignupFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SignupViewModel::class.java)
 
-//        val spinner: Spinner = view.findViewById(R.id.applyingDegree)
-//        this.context?.let {
-//            ArrayAdapter.createFromResource(
-//                it,
-//                R.array.degree_array,
-//                android.R.layout.simple_spinner_item
-//            ).also { adapter ->
-//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                // Apply the adapter to the spinner
-//                spinner.adapter = adapter
-//
-//            }
-//        }
 
-        setSpiner()
-
-
+        setSpiner(applyingDegreeSignup, R.array.applying_degree_array)
+        setSpiner(currentDegreeSignup, R.array.current_degree_array)
+        setBirthdaySelector(R.id.birthdaySignup)
+        setPhoneNumberFormatter()
+        setEmailFormatter()
     }
 
-    fun setSpiner() {
+    private fun setSpiner(spinner: Spinner, array: Int) {
 
 
-        val list = getResources().getStringArray(R.array.degree_array)
+        val list = getResources().getStringArray(array)
 
         val adapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
             this.requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
+            R.layout.spinner_item,
             list
         ) {
             override fun getDropDownView(
@@ -75,19 +74,32 @@ class SignupFragment : Fragment() {
                     parent
                 ) as TextView
                 // set item text bold
-                view.setTypeface(view.typeface, Typeface.BOLD)
+                view.setTypeface(view.typeface, Typeface.NORMAL)
 
                 // set selected item style
-                if (position == applyingDegree.selectedItemPosition && position != 0) {
+                if (position == spinner.selectedItemPosition && position != 0) {
                     //view.background = ColorDrawable(Color.parseColor("#F7E7CE"))
-                    view.setTextColor(Color.parseColor("#333399"))
+                    view.setTextColor(Color.parseColor("#808080"))
                 }
 
                 // make hint item color gray
                 if (position == 0) {
-                    view.setTextColor(Color.LTGRAY)
+                    view.setTextColor(Color.parseColor("#808080"))
                 }
 
+                return view
+            }
+
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view: TextView = super.getDropDownView(
+                    position,
+                    convertView,
+                    parent
+                ) as TextView
+
+                if (position == 0 && !spinner.isActivated) {
+                    view.setTextColor(Color.parseColor("#808080"))
+                }
                 return view
             }
 
@@ -96,10 +108,11 @@ class SignupFragment : Fragment() {
                 // first item is display as hint
                 return position != 0
             }
-
         }
-        applyingDegree.adapter = adapter
-        applyingDegree.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View,
@@ -115,11 +128,85 @@ class SignupFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // another interface callback
             }
         }
+    }
+
+    private fun setBirthdaySelector(resource: Int) {
+
+        val textInput = view?.findViewById<TextInputLayout>(resource)
+        textInput?.editText?.isClickable = true
+        textInput?.editText?.isFocusable = false
+
+        val date =
+            OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateBirthday(textInput?.editText)
+
+            }
+
+        textInput?.editText?.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                context?.let {
+                    DatePickerDialog(
+                        it, date, calendar
+                            .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)
+                    ).show()
+                }
+            }
+        })
+    }
+
+    private fun updateBirthday(textInput: EditText?) {
+        val myFormat = "MM/dd/yy"
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        textInput?.setText(sdf.format(calendar.getTime()))
+    }
+
+    private fun setPhoneNumberFormatter() {
+        val phoneField = view?.findViewById<TextInputLayout>(R.id.phoneSignUp)
+        phoneField?.editText?.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+    }
+
+    private fun setEmailFormatter() {
+
+        val emailAddress = view?.findViewById<TextInputLayout>(R.id.emailSignup)
+        val emailEditText = emailAddress?.editText
+
+        emailAddress?.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (checkEmail(emailEditText?.getText().toString()) || s.length == 0) {
+                    emailEditText?.setError(null)
+                } else {
+                    emailEditText?.setError("Invalid email address")
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+            }
+        })
 
 
+    }
+
+    private fun checkEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
 }

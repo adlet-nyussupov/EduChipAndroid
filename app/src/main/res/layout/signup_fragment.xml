@@ -3,13 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="sysData"
+            type="com.moniumverse.educhip_app.model.SysData" />
+    </data>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:focusable="true" android:focusableInTouchMode="true"
+            >
 
             <TextView
                 android:id="@+id/signupWelcomeText"
@@ -19,21 +28,25 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 android:gravity="center_horizontal"
                 android:text="@string/signup_welcome_text"
+                android:textColor="@android:color/secondary_text_light"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:fontFamily="@font/arimo"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.023" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameSignup"
+
+
+
+            <Spinner
+                android:id="@+id/applyingDegreeSignup"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -41,29 +54,16 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
-                android:hint="Your first name please"
+                android:gravity="center_horizontal"
+                android:scrollbarSize="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ageSignup" />
+                app:layout_constraintTop_toBottomOf="@+id/signupWelcomeText" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/secondNameSignup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="Your second name please"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameSignup" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/currentDegreeSignup"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -72,29 +72,8 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/applyingDegree">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Your current degree please" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ageSignup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="Your age please"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/whereToStudySignup" />
+                app:layout_constraintTop_toBottomOf="@+id/applyingDegreeSignup" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/whereToStudySignup"
@@ -112,7 +91,77 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Where do you want to study please" />
+                    android:hint="Where do you want to study please"
+                    android:inputType="textShortMessage"
+                    android:maxLength="2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/birthdaySignup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/whereToStudySignup">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your birthday please"
+                    android:inputType="date" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameSignup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthdaySignup">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your first name please"
+                    android:inputType="textShortMessage" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/secondNameSignup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameSignup">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your second name please"
+                    android:inputType="textShortMessage" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -125,14 +174,15 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordSignup">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Your phone number please" />
+                    android:hint="Your phone number please"
+                    android:inputType="phone"
+                    android:maxLength="15" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -158,6 +208,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
+                app:errorTextColor="#F14B4B"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/secondNameSignup">
@@ -184,22 +235,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Your password please" />
+                    android:hint="Your password please"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/applyingDegree"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:gravity="center_horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signupWelcomeText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
