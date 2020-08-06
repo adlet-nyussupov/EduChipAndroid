@@ -144,7 +144,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/secondNameSignup"
+                android:id="@+id/lastNameSignup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -215,7 +215,7 @@
                 app:errorTextColor="#F14B4B"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/secondNameSignup">
+                app:layout_constraintTop_toBottomOf="@+id/lastNameSignup">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

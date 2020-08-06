@@ -54,7 +54,7 @@ class SignupFragment : Fragment() {
         val whereToStudy = view.findViewById<TextInputLayout>(R.id.whereToStudySignup)
         val birthday = view.findViewById<TextInputLayout>(R.id.birthdaySignup)
         val firstName = view.findViewById<TextInputLayout>(R.id.firstNameSignup)
-        val secondName = view.findViewById<TextInputLayout>(R.id.secondNameSignup)
+        val lastName = view.findViewById<TextInputLayout>(R.id.lastNameSignup)
         val password = view.findViewById<TextInputLayout>(R.id.passwordSignup)
         val signupBtn = view.findViewById<Button>(R.id.signupBtn)
 
@@ -63,13 +63,16 @@ class SignupFragment : Fragment() {
         val textInputData = mapOf<String, TextInputLayout>(
             "email" to emailAddress,
             "phone" to phoneNumber,
-            "wheretostudy" to whereToStudy,
+            "where_to_study" to whereToStudy,
             "birthday" to birthday,
-            "firstname" to firstName,
-            "secondname" to secondName,
+            "first_name" to firstName,
+            "last_name" to lastName,
             "password" to password
         )
-        val spinnerData = mapOf<String, Spinner>("applyingdegree" to applyingDegree, "currentdegree" to currentDegree)
+        val spinnerData = mapOf<String, Spinner>(
+            "applying_degree" to applyingDegree,
+            "current_degree" to currentDegree
+        )
 
 
         setSpinner(applyingDegree, R.array.applying_degree_array)
@@ -77,6 +80,12 @@ class SignupFragment : Fragment() {
         setBirthdaySelector(birthday)
         setFormatter(emailAddress, Patterns.EMAIL_ADDRESS, "", "Invalid email")
         setFormatter(phoneNumber, Patterns.PHONE, phoneRegex, "Invalid phone number")
+
+        signupBtn.setOnClickListener {
+            setUserData(textInputData, spinnerData)
+            viewModel.signupAttempt(currentUser)
+        }
+
 
     }
 
@@ -225,20 +234,32 @@ class SignupFragment : Fragment() {
     }
 
 
-    private fun getUserData(textInputData : Map<String, TextInputLayout>,  spinnerData : Map<String, Spinner>) {
+    private fun setUserData(
+        textInputData: Map<String, TextInputLayout>,
+        spinnerData: Map<String, Spinner>
+    ) {
+        val birthday = textInputData.get("birthday")?.editText?.text.toString()
+        val email = textInputData.get("email")?.editText?.text.toString()
+        val firstName = textInputData.get("first_name")?.editText?.text.toString()
+        val lastanme = textInputData.get("last_name")?.editText?.text.toString()
+        val whereToStudy =
+            textInputData.get("where_to_study")?.editText?.text.toString()
+        val password = textInputData.get("password")?.editText?.text.toString()
+        val phone = textInputData.get("password")?.editText?.text.toString()
+        val applyingDegree = spinnerData.get("applying_degree")?.selectedItem.toString()
+        val currentDegree = spinnerData.get("current_degree")?.selectedItem.toString()
 
-        viewModel.userData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
-          //  user.birthday = textInputData.get("birthday")?.editText?.text.toString()
-
-        })
-
-
-        user.userEmail = textInputData[0].editText?.text.toString()
-
-
-
-
+        currentUser = User(
+            null,
+            birthday,
+            applyingDegree,
+            currentDegree,
+            email,
+            firstName,
+            lastanme,
+            password,
+            phone,
+            whereToStudy
+        )
     }
-
-
 }

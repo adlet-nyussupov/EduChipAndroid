@@ -8,6 +8,10 @@ import com.google.gson.annotations.SerializedName
 @Entity
 data class User(
 
+    @ColumnInfo(name = "userId")
+    @SerializedName("userId")
+    val userId: String?,
+
     @ColumnInfo(name = "birthday")
     @SerializedName("birthday")
     val birthday: String?,
@@ -22,29 +26,29 @@ data class User(
 
     @ColumnInfo(name = "email")
     @SerializedName("email")
-    val userEmail: String,
+    val userEmail: String?,
 
     @ColumnInfo(name = "firstName")
     @SerializedName("firstName")
-    val userFirstName: String,
+    val userFirstName: String?,
 
     @ColumnInfo(name = "lastName")
     @SerializedName("lastName")
-    val userLastname: String,
+    val userLastname: String?,
 
     @ColumnInfo(name = "password")
     @SerializedName("password")
-    val userPassword: String,
+    val userPassword: String?,
 
     @ColumnInfo(name = "phone")
     @SerializedName("phone")
-    val userPhone: String,
+    val userPhone: String?,
 
     @ColumnInfo(name = "whereToStudy")
     @SerializedName("whereToStudy")
-    val userWhereToStudy: String
+    val userWhereToStudy: String?
 ){
     @PrimaryKey(autoGenerate = false)
-    var userId: Int = 0
+    var id: Int = 0
 
 }

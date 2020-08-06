@@ -6,7 +6,7 @@ import androidx.room.*
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createUser(vararg user: User): User
+    suspend fun createUser(vararg user: User)
 
     @Query("SELECT * FROM user WHERE userId = :userId")
     suspend fun getUser(userId: Int): User
