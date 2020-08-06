@@ -7,6 +7,6 @@ import retrofit2.http.POST
 interface EduChipUsersAPI {
 
     @POST("educhip-app-ws/users")
-    fun sendRequestForRegister(@Body user: User): Single<List<User>>
+    fun sendRequestForRegister(@Body user: User): Single<User>
 
 }

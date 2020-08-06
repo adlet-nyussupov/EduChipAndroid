@@ -30,7 +30,7 @@ import java.util.regex.Pattern
 class SignupFragment : Fragment() {
 
     private lateinit var viewModel: SignupViewModel
-    private lateinit var user: User
+    private lateinit var currentUser: User
     val calendar: Calendar = Calendar.getInstance()
     private var sysData: SysData? = null
 
@@ -47,20 +47,40 @@ class SignupFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(SignupViewModel::class.java)
 
 
-        setSpiner(applyingDegreeSignup, R.array.applying_degree_array)
-        setSpiner(currentDegreeSignup, R.array.current_degree_array)
-        setBirthdaySelector(R.id.birthdaySignup)
         val emailAddress = view.findViewById<TextInputLayout>(R.id.emailSignup)
-        val phoneNumber = view?.findViewById<TextInputLayout>(R.id.phoneSignUp)
+        val phoneNumber = view.findViewById<TextInputLayout>(R.id.phoneSignUp)
+        val applyingDegree = view.findViewById<Spinner>(R.id.applyingDegreeSignup)
+        val currentDegree = view.findViewById<Spinner>(R.id.currentDegreeSignup)
+        val whereToStudy = view.findViewById<TextInputLayout>(R.id.whereToStudySignup)
+        val birthday = view.findViewById<TextInputLayout>(R.id.birthdaySignup)
+        val firstName = view.findViewById<TextInputLayout>(R.id.firstNameSignup)
+        val secondName = view.findViewById<TextInputLayout>(R.id.secondNameSignup)
+        val password = view.findViewById<TextInputLayout>(R.id.passwordSignup)
+        val signupBtn = view.findViewById<Button>(R.id.signupBtn)
+
         var phoneRegex = "^[+]?[0-9]{11,15}$"
 
+        val textInputData = mapOf<String, TextInputLayout>(
+            "email" to emailAddress,
+            "phone" to phoneNumber,
+            "wheretostudy" to whereToStudy,
+            "birthday" to birthday,
+            "firstname" to firstName,
+            "secondname" to secondName,
+            "password" to password
+        )
+        val spinnerData = mapOf<String, Spinner>("applyingdegree" to applyingDegree, "currentdegree" to currentDegree)
 
+
+        setSpinner(applyingDegree, R.array.applying_degree_array)
+        setSpinner(currentDegree, R.array.current_degree_array)
+        setBirthdaySelector(birthday)
         setFormatter(emailAddress, Patterns.EMAIL_ADDRESS, "", "Invalid email")
         setFormatter(phoneNumber, Patterns.PHONE, phoneRegex, "Invalid phone number")
 
     }
 
-    private fun setSpiner(spinner: Spinner, array: Int) {
+    private fun setSpinner(spinner: Spinner, array: Int) {
 
 
         val list = getResources().getStringArray(array)
@@ -80,20 +100,14 @@ class SignupFragment : Fragment() {
                     convertView,
                     parent
                 ) as TextView
-                // set item text bold
-                view.setTypeface(view.typeface, Typeface.NORMAL)
 
-                // set selected item style
                 if (position == spinner.selectedItemPosition && position != 0) {
-                    //view.background = ColorDrawable(Color.parseColor("#F7E7CE"))
                     view.setTextColor(Color.parseColor("#808080"))
                 }
 
-                // make hint item color gray
                 if (position == 0) {
                     view.setTextColor(Color.parseColor("#808080"))
                 }
-
                 return view
             }
 
@@ -111,14 +125,10 @@ class SignupFragment : Fragment() {
             }
 
             override fun isEnabled(position: Int): Boolean {
-                // disable first item
-                // first item is display as hint
                 return position != 0
             }
         }
-
         spinner.adapter = adapter
-
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
@@ -126,11 +136,8 @@ class SignupFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                // by default spinner initial selected item is first item
                 if (position != 0) {
-                    //  textView.text = "Selected: "
-                    // get selected item text
-                    //   textView.append(parent.getItemAtPosition(position).toString())
+
                 }
             }
 
@@ -139,22 +146,22 @@ class SignupFragment : Fragment() {
         }
     }
 
-    private fun setBirthdaySelector(resource: Int) {
+    private fun setBirthdaySelector(birthday: TextInputLayout) {
 
-        val textInput = view?.findViewById<TextInputLayout>(resource)
-        textInput?.editText?.isClickable = true
-        textInput?.editText?.isFocusable = false
+
+        birthday.editText?.isClickable = true
+        birthday.editText?.isFocusable = false
 
         val date =
             OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateBirthday(textInput?.editText)
+                updateBirthday(birthday.editText)
 
             }
 
-        textInput?.editText?.setOnClickListener(object : View.OnClickListener {
+        birthday.editText?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 context?.let {
                     DatePickerDialog(
@@ -181,7 +188,7 @@ class SignupFragment : Fragment() {
         errMessage: String
     ) {
 
-        val editText = inputLayout?.editText
+        val editText = inputLayout.editText
 
         editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -189,11 +196,11 @@ class SignupFragment : Fragment() {
                 val matchRegex = editText.text.toString().matches(customRegex.toRegex())
 
                 if (customRegex.equals("") && matchPattern || s.length == 0) {
-                    editText?.setError(null)
+                    editText.setError(null)
                 } else if (!customRegex.equals("") && matchRegex) {
-                    editText?.setError(null)
+                    editText.setError(null)
                 } else {
-                    editText?.setError(errMessage)
+                    editText.setError(errMessage)
                 }
             }
 
@@ -213,6 +220,22 @@ class SignupFragment : Fragment() {
             ) {
             }
         })
+
+
+    }
+
+
+    private fun getUserData(textInputData : Map<String, TextInputLayout>,  spinnerData : Map<String, Spinner>) {
+
+        viewModel.userData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
+          //  user.birthday = textInputData.get("birthday")?.editText?.text.toString()
+
+        })
+
+
+        user.userEmail = textInputData[0].editText?.text.toString()
+
+
 
 
     }

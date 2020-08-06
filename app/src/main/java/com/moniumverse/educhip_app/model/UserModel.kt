@@ -10,7 +10,7 @@ data class User(
 
     @ColumnInfo(name = "birthday")
     @SerializedName("birthday")
-    val userAge: String?,
+    val birthday: String?,
 
     @ColumnInfo(name = "applyingEducationDegree")
     @SerializedName("applyingEducationDegree")

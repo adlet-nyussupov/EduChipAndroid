@@ -18,7 +18,7 @@ class SignupViewModel(application: Application) : BaseViewModel(application) {
 
     val loading = MutableLiveData<Boolean>()
     val userSignupError = MutableLiveData<Boolean>()
-    val userData = MutableLiveData<List<User>>()
+    val userData = MutableLiveData<User>()
 
     private val educhipService = EduChipAPIService()
     private val disposabale = CompositeDisposable()
@@ -37,8 +37,8 @@ class SignupViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(
                     AndroidSchedulers.mainThread()
                 )
-                .subscribeWith(object : DisposableSingleObserver<List<User>>() {
-                    override fun onSuccess(userData: List<User>) {
+                .subscribeWith(object : DisposableSingleObserver<User>() {
+                    override fun onSuccess(userData: User) {
                         storeUserLocaly(userData)
                         Toast.makeText(
                             getApplication(),
@@ -61,18 +61,18 @@ class SignupViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-    private fun userSignedup(user: List<User>) {
+    private fun userSignedup(user: User) {
         userData.value = user
         userSignupError.value = false
         loading.value = false
     }
 
 
-    fun storeUserLocaly(list: List<User>) {
+    fun storeUserLocaly(user: User) {
         launch {
             val dao = UserDatabase(getApplication()).UserDao()
-            val result = dao.createUser(*list.toTypedArray())
-            userSignedup(list)
+            val result = dao.createUser(user)
+            userSignedup(user)
         }
     }
 

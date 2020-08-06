@@ -13,7 +13,7 @@ class EduChipAPIService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
             .create(EduChipUsersAPI::class.java)
 
-    fun sendRequestForRegister(user : User): Single<List<User>> {
+    fun sendRequestForRegister(user : User): Single<User> {
         return api.sendRequestForRegister(user)
     }
 
