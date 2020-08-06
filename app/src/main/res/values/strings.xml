@@ -34,5 +34,6 @@
     <string name="sign_up_btn">Sign up!</string>
     <string name="email">Your email please</string>
     <string name="your_password_please">Your password please</string>
+    <string name="an_error_occured_while_loading_data">error_loading_message</string>
 
 </resources>

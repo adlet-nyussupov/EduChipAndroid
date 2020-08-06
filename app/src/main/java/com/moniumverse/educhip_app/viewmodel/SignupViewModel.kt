@@ -4,10 +4,8 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.moniumverse.educhip_app.model.EduChipAPIService
-import com.moniumverse.educhip_app.model.EduChipUsersAPI
-import com.moniumverse.educhip_app.model.User
-import com.moniumverse.educhip_app.model.UserDatabase
-import io.reactivex.Scheduler
+import com.moniumverse.educhip_app.model.user.UserDatabase
+import com.moniumverse.educhip_app.model.user.UserModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -18,27 +16,28 @@ class SignupViewModel(application: Application) : BaseViewModel(application) {
 
     val loading = MutableLiveData<Boolean>()
     val userSignupError = MutableLiveData<Boolean>()
-    val userData = MutableLiveData<User>()
+    val userData = MutableLiveData<UserModel>()
 
-    private val educhipService = EduChipAPIService()
+    private val educhipService =
+        EduChipAPIService()
     private val disposabale = CompositeDisposable()
 
 
-    fun signupAttempt(user: User) {
-        registerUser(user)
+    fun signupAttempt(userModel: UserModel) {
+        registerUser(userModel)
     }
 
-    private fun registerUser(user: User) {
+    private fun registerUser(userModel: UserModel) {
         loading.value = true
         disposabale.add(
-            educhipService.sendRequestForRegister(user).subscribeOn(
+            educhipService.sendRequestForRegister(userModel).subscribeOn(
                 Schedulers.newThread()
             )
                 .observeOn(
                     AndroidSchedulers.mainThread()
                 )
-                .subscribeWith(object : DisposableSingleObserver<User>() {
-                    override fun onSuccess(userData: User) {
+                .subscribeWith(object : DisposableSingleObserver<UserModel>() {
+                    override fun onSuccess(userData: UserModel) {
                         storeUserLocaly(userData)
                         Toast.makeText(
                             getApplication(),
@@ -61,18 +60,20 @@ class SignupViewModel(application: Application) : BaseViewModel(application) {
     }
 
 
-    private fun userSignedup(user: User) {
-        userData.value = user
+    private fun userSignedup(userModel: UserModel) {
+        userData.value = userModel
         userSignupError.value = false
         loading.value = false
     }
 
 
-    fun storeUserLocaly(user: User) {
+    fun storeUserLocaly(userModel: UserModel) {
         launch {
-            val dao = UserDatabase(getApplication()).UserDao()
-            val result = dao.createUser(user)
-            userSignedup(user)
+            val dao = UserDatabase(
+                getApplication()
+            ).UserDao()
+            val result = dao.createUser(userModel)
+            userSignedup(userModel)
         }
     }
 

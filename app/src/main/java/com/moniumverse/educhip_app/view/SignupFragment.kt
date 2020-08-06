@@ -3,9 +3,7 @@ package com.moniumverse.educhip_app.view
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
-import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
@@ -17,10 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
-import com.moniumverse.educhip_app.model.SysData
-import com.moniumverse.educhip_app.model.User
+import com.moniumverse.educhip_app.model.user.UserModel
 import com.moniumverse.educhip_app.viewmodel.SignupViewModel
-import kotlinx.android.synthetic.main.signup_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale
@@ -30,9 +26,9 @@ import java.util.regex.Pattern
 class SignupFragment : Fragment() {
 
     private lateinit var viewModel: SignupViewModel
-    private lateinit var currentUser: User
+    private lateinit var currentUser: UserModel
+    private lateinit var registeredUser: UserModel
     val calendar: Calendar = Calendar.getInstance()
-    private var sysData: SysData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -249,7 +245,7 @@ class SignupFragment : Fragment() {
         val applyingDegree = spinnerData.get("applying_degree")?.selectedItem.toString()
         val currentDegree = spinnerData.get("current_degree")?.selectedItem.toString()
 
-        currentUser = User(
+        currentUser = UserModel(
             null,
             birthday,
             applyingDegree,
@@ -262,4 +258,14 @@ class SignupFragment : Fragment() {
             whereToStudy
         )
     }
+
+
+    private fun getUserData() {
+        viewModel.userData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
+            registeredUser = user
+        })
+
+
+    }
+
 }

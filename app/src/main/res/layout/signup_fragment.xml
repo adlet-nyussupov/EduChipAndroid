@@ -4,9 +4,7 @@
 
     <data>
 
-        <variable
-            name="sysData"
-            type="com.moniumverse.educhip_app.model.SysData" />
+     
     </data>
 
 
@@ -91,8 +89,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/where_to_study"
                     android:inputType="textShortMessage"
-                    android:maxLength="20"
-                    />
+                    android:maxLength="20" />
             </com.google.android.material.textfield.TextInputLayout>
 
 

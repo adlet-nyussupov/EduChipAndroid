@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.model
+package com.moniumverse.educhip_app.model.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
-data class User(
+data class UserModel(
 
     @ColumnInfo(name = "userId")
     @SerializedName("userId")
