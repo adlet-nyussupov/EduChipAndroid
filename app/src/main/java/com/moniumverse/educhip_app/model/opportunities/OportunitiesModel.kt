@@ -39,3 +39,5 @@ data class OpportunitiesModel(
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0
 }
+
+data class OpportunityPalette(var color: Int)

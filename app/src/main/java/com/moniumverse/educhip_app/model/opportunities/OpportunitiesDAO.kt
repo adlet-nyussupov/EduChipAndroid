@@ -12,10 +12,10 @@ interface OpportunitiesDAO {
     suspend fun insertALL(vararg opportunities: OpportunitiesModel): List<Long>
 
     @Query("SELECT * FROM opportunitiesmodel")
-    suspend fun getAllDogs(): List<OpportunitiesModel>
+    suspend fun getAllOpportunities(): List<OpportunitiesModel>
 
     @Query("SELECT * FROM opportunitiesmodel WHERE id = :id")
-    suspend fun getDog(id: Int): OpportunitiesModel
+    suspend fun getOpportunity(id: Int): OpportunitiesModel
 
     @Query("DELETE FROM opportunitiesmodel")
     suspend fun deleteAllOpportunities()

@@ -47,8 +47,9 @@ data class UserModel(
     @ColumnInfo(name = "whereToStudy")
     @SerializedName("whereToStudy")
     val userWhereToStudy: String?
+
 ){
     @PrimaryKey(autoGenerate = false)
-    var id: Int = 0
+    var id: Int = 1
 
 }

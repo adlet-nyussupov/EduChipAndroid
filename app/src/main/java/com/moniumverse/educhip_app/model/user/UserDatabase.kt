@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = arrayOf(UserModel::class), version = 1)
+@Database(entities = arrayOf(UserModel::class, UserAuthTokenModel::class), version = 1)
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun UserDao(): UserDAO

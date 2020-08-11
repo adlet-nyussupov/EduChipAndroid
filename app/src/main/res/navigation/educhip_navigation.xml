@@ -3,9 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/educhip_navigation"
-    app:startDestination="@id/signupFragment">
+    app:startDestination="@id/opportunitiesListFragment">
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.moniumverse.educhip_app.view.SignupFragment"
-        android:label="User Registration" />
+        android:label="User Registration" >
+        <action
+            android:id="@+id/action_signupFragment_to_signinFragment"
+            app:destination="@id/signinFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/opportunitiesListFragment"
+        android:name="com.moniumverse.educhip_app.view.OpportunitiesListFragment"
+        android:label="Opportunities:" >
+        <action
+            android:id="@+id/action_opportunitiesListFragment_to_signinFragment"
+            app:destination="@id/signinFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.moniumverse.educhip_app.view.SigninFragment"
+        android:label="User Login" >
+        <action
+            android:id="@+id/action_signinFragment_to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_signinFragment_to_opportunitiesListFragment"
+            app:destination="@id/opportunitiesListFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

@@ -26,6 +26,12 @@ class OpportunitiesListAdapter(val opportunitiesList: ArrayList<OpportunitiesMod
         holder.view.listener = this
     }
 
+    fun updateOpportunititesList(newOpportunititesList : List<OpportunitiesModel>){
+        opportunitiesList.clear()
+        opportunitiesList.addAll(newOpportunititesList)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OpportunityViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = DataBindingUtil.inflate<ItemOpportunityBinding>(

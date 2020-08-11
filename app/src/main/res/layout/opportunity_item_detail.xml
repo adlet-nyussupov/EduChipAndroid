@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <data>
+
+        <variable
+            name="opportunity"
+            type="com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel" />
+
+        <variable
+            name="palette"
+            type="com.moniumverse.educhip_app.model.opportunities.OpportunityPalette" />
+    </data>
+
+
+    <RelativeLayout
+        tools:context=".view.DetailFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{palette.color}">
+
+        <ImageView
+            android:id="@+id/opportunityImageDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:imageUrl="@{opportunity.opportunityImageUrl}"
+            android:minHeight="200dp" />
+
+        <TextView
+            android:id="@+id/opportunityNameDetail"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/opportunityImageDetail"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            android:text="@{opportunity.opportunityName}" />
+
+        <TextView
+            android:id="@+id/opportunityDeadlineDetail"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/opportunityNameDetail"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            android:text="@{opportunity.opportunityDeadline}" />
+
+        <TextView
+            android:id="@+id/opportunityPeriodDetail"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/opportunityDeadlineDetail"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            android:text="@{opportunity.opportunityPeriod}" />
+
+        <TextView
+            android:id="@+id/opportunityDescriptionDetail"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/opportunityPeriodDetail"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            android:text="@{opportunity.opportunityDescription}" />
+
+    </RelativeLayout>
+
+</layout>
