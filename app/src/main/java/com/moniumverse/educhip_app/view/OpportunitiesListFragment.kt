@@ -34,9 +34,6 @@ class OpportunitiesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(OpportunitiesListViewModel::class.java)
 
-
-
-
         viewModel.refresh()
 
 

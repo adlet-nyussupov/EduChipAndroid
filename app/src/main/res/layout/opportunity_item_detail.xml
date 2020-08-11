@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <data>
@@ -17,10 +16,12 @@
 
 
     <RelativeLayout
-        tools:context=".view.DetailFragment"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{palette.color}">
+        android:background="@{palette.color}"
+        tools:context=".view.OpportunityDetailFragment"
+        >
 
         <ImageView
             android:id="@+id/opportunityImageDetail"

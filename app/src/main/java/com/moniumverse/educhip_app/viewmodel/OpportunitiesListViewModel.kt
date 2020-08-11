@@ -79,9 +79,7 @@ class OpportunitiesListViewModel(application: Application) : BaseViewModel(appli
                 userIsSignedin.value = false
                 showMessage("Please sign in or sign up")
             }
-
         }
-
     }
 
     private fun fetchFromRemote(authToken: String, userId: String, page: Int, limit: Int) {
@@ -112,9 +110,6 @@ class OpportunitiesListViewModel(application: Application) : BaseViewModel(appli
     }
 
 
-
-
-
     private fun opportunitiesRetrieved(opportunitiesList: List<OpportunitiesModel>) {
         opportunities.value = opportunitiesList
         opportunityLoadError.value = false
@@ -124,7 +119,7 @@ class OpportunitiesListViewModel(application: Application) : BaseViewModel(appli
     private fun storeOpportunitiesLocally(list: List<OpportunitiesModel>) {
         launch {
             val dao = OpportunitiesDatabase(getApplication()).OpportunitiesDAO()
-            dao.getAllOpportunities()
+            dao.deleteAllOpportunities()
             val result = dao.insertALL(*list.toTypedArray())
             var i = 0
             while (i < list.size) {

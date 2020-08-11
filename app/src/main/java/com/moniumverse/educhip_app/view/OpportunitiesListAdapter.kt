@@ -47,9 +47,9 @@ class OpportunitiesListAdapter(val opportunitiesList: ArrayList<OpportunitiesMod
 
     override fun onOpportunityClicked(v: View) {
         val id = v.opportunityId.text.toString().toInt()
-        // val action = ListFragmentDirections.actionDetailFragment()
-        // action.dogUuid = uuid
-        //  Navigation.findNavController(v).navigate(action)
+         val action = OpportunitiesListFragmentDirections.actionOpportunitiesListFragmentToOpportunityDetailFragment()
+         action.opportunityId = id
+          Navigation.findNavController(v).navigate(action)
     }
 
 }

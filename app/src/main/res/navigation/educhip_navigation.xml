@@ -23,6 +23,9 @@
             app:destination="@id/signinFragment"
             app:launchSingleTop="false"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_opportunitiesListFragment_to_opportunityDetailFragment"
+            app:destination="@id/opportunityDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/signinFragment"
@@ -38,5 +41,19 @@
             app:destination="@id/opportunitiesListFragment"
             app:launchSingleTop="false"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/opportunityDetailFragment"
+        android:name="com.moniumverse.educhip_app.view.OpportunityDetailFragment"
+        android:label="OpportunityDetailFragment" >
+        <action
+            android:id="@+id/action_opportunityDetailFragment_to_opportunitiesListFragment"
+            app:destination="@id/opportunitiesListFragment" />
+        <argument android:name="opportunityId"
+            android:defaultValue="0"
+            app:argType="integer"
+            ></argument>
+
+
     </fragment>
 </navigation>
