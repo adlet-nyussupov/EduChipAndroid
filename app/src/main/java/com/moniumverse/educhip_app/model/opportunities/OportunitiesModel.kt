@@ -16,6 +16,10 @@ data class OpportunitiesModel(
     @SerializedName("opportunityName")
     val opportunityName : String?,
 
+    @ColumnInfo(name = "opportunityCountry")
+    @SerializedName("opportunityCountry")
+    val opportunityCountry : String?,
+
     @ColumnInfo(name = "opportunityDeadline")
     @SerializedName("opportunityDeadline")
     val opportunityDeadline: String?,
@@ -32,8 +36,8 @@ data class OpportunitiesModel(
     @SerializedName("opportunityImageUrl")
     val opportunityImageUrl: String?,
 
-    @ColumnInfo(name = "opportunity_url")
-    @SerializedName("opportunity_url")
+    @ColumnInfo(name = "opportunityUrl")
+    @SerializedName("opportunityUrl")
     val opportunity_url: String?
 ){
     @PrimaryKey(autoGenerate = true)
