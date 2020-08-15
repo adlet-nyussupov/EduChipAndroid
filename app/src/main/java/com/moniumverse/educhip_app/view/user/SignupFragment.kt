@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.view
+package com.moniumverse.educhip_app.view.user
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
 import com.moniumverse.educhip_app.model.user.UserModel
-import com.moniumverse.educhip_app.viewmodel.SignupViewModel
+import com.moniumverse.educhip_app.viewmodel.user.SignupViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.Locale

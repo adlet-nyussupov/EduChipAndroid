@@ -1,10 +1,11 @@
-package com.moniumverse.educhip_app.viewmodel
+package com.moniumverse.educhip_app.viewmodel.opportunities
 
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.moniumverse.educhip_app.model.opportunities.OpportunitiesDatabase
 import com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel
+import com.moniumverse.educhip_app.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class OpportunityDetailViewModel(application: Application) : BaseViewModel(application) {

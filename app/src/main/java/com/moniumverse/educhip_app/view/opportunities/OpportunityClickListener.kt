@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.view
+package com.moniumverse.educhip_app.view.opportunities
 
 import android.view.View
 

@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.viewmodel
+package com.moniumverse.educhip_app.viewmodel.user
 
 import android.app.Application
 import android.widget.Toast
@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.moniumverse.educhip_app.model.EduChipAPIService
 import com.moniumverse.educhip_app.model.user.UserDatabase
 import com.moniumverse.educhip_app.model.user.UserModel
+import com.moniumverse.educhip_app.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver

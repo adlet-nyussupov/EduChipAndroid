@@ -1,9 +1,8 @@
-package com.moniumverse.educhip_app.view
+package com.moniumverse.educhip_app.view.user
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -14,9 +13,8 @@ import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
 import com.moniumverse.educhip_app.model.user.UserSigninModel
-import com.moniumverse.educhip_app.viewmodel.SigninViewModel
-import com.moniumverse.educhip_app.viewmodel.SignupViewModel
-import kotlinx.android.synthetic.main.opportunities_list.*
+import com.moniumverse.educhip_app.view.user.SigninFragmentDirections
+import com.moniumverse.educhip_app.viewmodel.user.SigninViewModel
 import kotlinx.android.synthetic.main.signin_fragment.*
 
 class SigninFragment : Fragment() {
@@ -58,7 +56,8 @@ class SigninFragment : Fragment() {
         }
 
         signupTxtLink.setOnClickListener {
-            val action = SigninFragmentDirections.actionSigninFragmentToSignupFragment()
+            val action =
+                SigninFragmentDirections.actionSigninFragmentToSignupFragment()
             Navigation.findNavController(it).navigate(action)
         }
 

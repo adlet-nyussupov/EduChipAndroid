@@ -36,4 +36,6 @@
     <string name="your_password_please">Your password please</string>
     <string name="an_error_occured_while_loading_data">error_loading_message</string>
 
+    <string name="deadline_item"><![CDATA[<b>Deadline: </b>]]>%1$s</string>
+
 </resources>

@@ -1,23 +1,30 @@
-package com.moniumverse.educhip_app.view
+package com.moniumverse.educhip_app.view.opportunities
 
 import android.os.Bundle
+import android.text.Html
 import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
-import com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel
-import com.moniumverse.educhip_app.viewmodel.OpportunitiesListViewModel
+import com.moniumverse.educhip_app.view.opportunities.OpportunitiesListFragmentDirections
+import com.moniumverse.educhip_app.viewmodel.opportunities.OpportunitiesListViewModel
 import kotlinx.android.synthetic.main.opportunities_list.*
 
 class OpportunitiesListFragment : Fragment() {
 
     private lateinit var viewModel: OpportunitiesListViewModel
-    private val opportunitiesListAdapter = OpportunitiesListAdapter(arrayListOf())
+    private val opportunitiesListAdapter =
+        OpportunitiesListAdapter(
+            arrayListOf()
+        )
     private var userAuthToken : String  = ""
     private var userId : String  = ""
+
 
 
 
@@ -33,7 +40,6 @@ class OpportunitiesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(OpportunitiesListViewModel::class.java)
-
         viewModel.refresh()
 
 

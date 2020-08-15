@@ -1,22 +1,18 @@
-package com.moniumverse.educhip_app.viewmodel
+package com.moniumverse.educhip_app.viewmodel.user
 
-import android.R.attr.tag
 import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.moniumverse.educhip_app.model.EduChipAPIService
-import com.moniumverse.educhip_app.model.user.UserAuthTokenModel
 import com.moniumverse.educhip_app.model.user.UserDatabase
 import com.moniumverse.educhip_app.model.user.UserModel
 import com.moniumverse.educhip_app.model.user.UserSigninModel
+import com.moniumverse.educhip_app.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
-import retrofit2.Response
 
 
 class SigninViewModel(application: Application) : BaseViewModel(application) {

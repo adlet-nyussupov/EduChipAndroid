@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.view
+package com.moniumverse.educhip_app.view.opportunities
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.moniumverse.educhip_app.R
 import com.moniumverse.educhip_app.databinding.ItemOpportunityBinding
-import com.moniumverse.educhip_app.databinding.OpportunitiesListBinding
 import com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel
+import com.moniumverse.educhip_app.view.opportunities.OpportunitiesListFragmentDirections
 import kotlinx.android.synthetic.main.item_opportunity.view.*
 
 class OpportunitiesListAdapter(val opportunitiesList: ArrayList<OpportunitiesModel>) :
@@ -40,14 +40,17 @@ class OpportunitiesListAdapter(val opportunitiesList: ArrayList<OpportunitiesMod
             parent,
             false
         )
-        return OpportunityViewHolder(view)
+        return OpportunityViewHolder(
+            view
+        )
     }
 
     override fun getItemCount() = opportunitiesList.size
 
     override fun onOpportunityClicked(v: View) {
         val id = v.opportunityId.text.toString().toInt()
-         val action = OpportunitiesListFragmentDirections.actionOpportunitiesListFragmentToOpportunityDetailFragment()
+         val action =
+             OpportunitiesListFragmentDirections.actionOpportunitiesListFragmentToOpportunityDetailFragment()
          action.opportunityId = id
           Navigation.findNavController(v).navigate(action)
     }

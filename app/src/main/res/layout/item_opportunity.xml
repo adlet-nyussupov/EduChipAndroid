@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <data>
-
+        <import type="android.text.Html"/>
         <variable
             name="opportunity"
             type="com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel" />
 
         <variable
             name="listener"
-            type="com.moniumverse.educhip_app.view.OpportunityClickListener" />
+            type="com.moniumverse.educhip_app.view.opportunities.OpportunityClickListener" />
     </data>
 
 
@@ -30,7 +31,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:imageUrl="@{opportunity.opportunityImageUrl}"
             android:padding="4dp" />
 
@@ -38,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="4dp">
@@ -48,15 +49,20 @@
                 style="@style/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{opportunity.opportunityName}" />
+                android:text="@{opportunity.opportunityName}"
+                android:textSize="16sp"
+                />
 
 
-            <TextView
-                android:id="@+id/opportunityDeadline"
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{opportunity.opportunityDeadline}" />
+
+                <TextView
+                    android:id="@+id/opportunityDeadline"
+                    style="@style/Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{Html.fromHtml(@string/deadline_item(opportunity.opportunityDeadline))}"
+
+                    />
 
 
         </LinearLayout>

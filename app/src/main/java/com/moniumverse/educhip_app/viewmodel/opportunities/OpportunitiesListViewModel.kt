@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.viewmodel
+package com.moniumverse.educhip_app.viewmodel.opportunities
 
 import android.app.Application
 import android.widget.Toast
@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import com.moniumverse.educhip_app.model.EduChipAPIService
 import com.moniumverse.educhip_app.model.opportunities.OpportunitiesDatabase
 import com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel
-import com.moniumverse.educhip_app.model.user.UserAuthTokenModel
 import com.moniumverse.educhip_app.model.user.UserDatabase
 import com.moniumverse.educhip_app.util.NotificationsHelper
 import com.moniumverse.educhip_app.util.SharedPreferencesHelper
+import com.moniumverse.educhip_app.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver

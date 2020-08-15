@@ -1,4 +1,4 @@
-package com.moniumverse.educhip_app.view
+package com.moniumverse.educhip_app.view.opportunities
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -18,7 +18,8 @@ import com.moniumverse.educhip_app.R
 import com.moniumverse.educhip_app.databinding.OpportunityItemDetailBinding
 import com.moniumverse.educhip_app.model.opportunities.OpportunitiesModel
 import com.moniumverse.educhip_app.model.opportunities.OpportunityPalette
-import com.moniumverse.educhip_app.viewmodel.OpportunityDetailViewModel
+import com.moniumverse.educhip_app.view.opportunities.OpportunityDetailFragmentArgs
+import com.moniumverse.educhip_app.viewmodel.opportunities.OpportunityDetailViewModel
 
 
 class OpportunityDetailFragment : Fragment() {
@@ -43,7 +44,9 @@ class OpportunityDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            opportunityId = OpportunityDetailFragmentArgs.fromBundle(it).opportunityId
+            opportunityId = OpportunityDetailFragmentArgs.fromBundle(
+                it
+            ).opportunityId
         }
         viewModel = ViewModelProviders.of(this).get(OpportunityDetailViewModel::class.java)
         viewModel.refresh(opportunityId)
