@@ -29,6 +29,7 @@ class SignupFragment : Fragment() {
     private lateinit var currentUser: UserModel
     private lateinit var registeredUser: UserModel
     val calendar: Calendar = Calendar.getInstance()
+    var acceptSignup: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +80,29 @@ class SignupFragment : Fragment() {
 
         signupBtn.setOnClickListener {
             setUserData(textInputData, spinnerData)
-            viewModel.signupAttempt(currentUser)
+            if (
+                !currentUser.userBirthday.equals("") &&
+                !currentUser.userApplyingDegree?.contains("Select")!! &&
+                !currentUser.userPassword.equals("") &&
+                !currentUser.userCurrentDegree?.contains("Select")!! &&
+                !currentUser.userEmail.equals("") &&
+                emailAddress.editText?.error == null  &&
+                !currentUser.userLastname.equals("") &&
+                !currentUser.userFirstName.equals("") &&
+                !currentUser.userPhone.equals("") &&
+                phoneNumber.editText?.error == null &&
+                !currentUser.userWhereToStudy.equals("")
+            ) {
+                viewModel.signupAttempt(currentUser)
+            } else {
+                Toast.makeText(
+                    context,
+                    "Please fill all fields.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
         }
 
 

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
 import com.moniumverse.educhip_app.view.opportunities.OpportunitiesListFragmentDirections
+import com.moniumverse.educhip_app.view.user.SignupFragment
+import com.moniumverse.educhip_app.view.user.SignupFragmentDirections
 import com.moniumverse.educhip_app.viewmodel.opportunities.OpportunitiesListViewModel
 import kotlinx.android.synthetic.main.opportunities_list.*
 
@@ -109,10 +111,10 @@ class OpportunitiesListFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.actionSettings -> {
-//                view?.let { Navigation.findNavController(it).navigate(OpportunitiesListFragment.actionSettings()) }
-//
-//            }
+            R.id.actionSignout -> {
+                view?.let { Navigation.findNavController(it).navigate(OpportunitiesListFragmentDirections.actionOpportunitiesListFragmentToSigninFragment()) }
+                viewModel.deleteUserToken()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

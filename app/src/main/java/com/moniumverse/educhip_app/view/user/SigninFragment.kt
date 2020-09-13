@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.moniumverse.educhip_app.R
 import com.moniumverse.educhip_app.model.user.UserSigninModel
@@ -41,9 +42,10 @@ class SigninFragment : Fragment() {
         val signupTxtLink = view.findViewById<TextView>(R.id.signupLink)
         signupTxtLink.setMovementMethod(LinkMovementMethod.getInstance())
 
+        signinBtn.isEnabled = true;
 
         signinBtn.setOnClickListener {
-
+            signinBtn.isEnabled = false;
             userSigninModel = UserSigninModel(
                 emailAddress.editText?.text.toString(),
                 password.editText?.text.toString()
@@ -52,13 +54,17 @@ class SigninFragment : Fragment() {
             observeViewModel()
 
 
-
         }
 
         signupTxtLink.setOnClickListener {
+            signupTxtLink.isEnabled = false
             val action =
                 SigninFragmentDirections.actionSigninFragmentToSignupFragment()
-            Navigation.findNavController(it).navigate(action)
+            if (findNavController().currentDestination?.id == R.id.signinFragment) {
+                Navigation.findNavController(it).navigate(action)
+            } else {
+                signupTxtLink.isEnabled = true
+            }
         }
 
 
@@ -70,7 +76,13 @@ class SigninFragment : Fragment() {
                 if (it) {
                     val action =
                         SigninFragmentDirections.actionSigninFragmentToOpportunitiesListFragment()
-                    view?.let { it1 -> Navigation.findNavController(it1).navigate(action) }
+                    view?.let { it1 ->
+                        if (findNavController().currentDestination?.id == R.id.signinFragment) {
+                            Navigation.findNavController(it1).navigate(action)
+                        }
+                    }
+                } else {
+                    signinBtn.isEnabled = true;
                 }
             }
         })

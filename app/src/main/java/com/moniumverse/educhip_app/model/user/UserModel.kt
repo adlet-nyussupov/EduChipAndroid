@@ -14,7 +14,7 @@ data class UserModel(
 
     @ColumnInfo(name = "birthday")
     @SerializedName("birthday")
-    val birthday: String?,
+    val userBirthday: String?,
 
     @ColumnInfo(name = "applyingEducationDegree")
     @SerializedName("applyingEducationDegree")

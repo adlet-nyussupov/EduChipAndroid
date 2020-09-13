@@ -35,6 +35,7 @@ class OpportunitiesListViewModel(application: Application) : BaseViewModel(appli
         checkCacheDuration()
         val updateTime = prefHelper.getUpdateTime()
         if (updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
+           // checkIfUserSignedInAndFetchFromDatabse()
             fetchFromDatabse()
         } else {
             getUserTokenLocalyAndFetchRemote()
@@ -66,7 +67,24 @@ class OpportunitiesListViewModel(application: Application) : BaseViewModel(appli
         }
     }
 
-    fun getUserTokenLocalyAndFetchRemote() {
+    private fun checkIfUserSignedInAndFetchFromDatabse() {
+        launch {
+            val dao = UserDatabase(
+                getApplication()
+            ).UserDao()
+            val result = dao.getToken()
+            if (result.size > 0) {
+                fetchFromDatabse()
+            } else {
+                userIsSignedin.value = false
+                showMessage("Please sign in or sign up")
+            }
+        }
+
+    }
+
+
+    private fun getUserTokenLocalyAndFetchRemote() {
         launch {
             val dao = UserDatabase(
                 getApplication()
@@ -107,6 +125,18 @@ class OpportunitiesListViewModel(application: Application) : BaseViewModel(appli
                 }
                 )
         )
+    }
+
+    fun deleteUserToken() {
+
+        launch {
+            val dao = UserDatabase(
+                getApplication()
+            ).UserDao()
+            val result = dao.deleteUserToken()
+
+        }
+
     }
 
 

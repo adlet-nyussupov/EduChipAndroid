@@ -21,7 +21,9 @@ class EduChipAPIService {
         .setLenient()
         .create()
 
-    private val BASE_URL = "http://10.0.2.2:8080/";
+   // private val BASE_URL = "http://10.0.2.2:8080/";
+    private val BASE_URL = "http://ec2-13-49-138-158.eu-north-1.compute.amazonaws.com:8080/";
+
     private val userApi =
         Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()

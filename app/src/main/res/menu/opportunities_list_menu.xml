@@ -3,4 +3,7 @@
     <item
         android:title="Settings"
         android:id="@+id/actionSettings"/>
+    <item
+        android:title="Sign Out"
+        android:id="@+id/actionSignout"/>
 </menu>
